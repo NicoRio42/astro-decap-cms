@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "allowJs": true,
+        "checkJs": true,
+        "outDir": "dist",
+        "lib": ["ESNext"],
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "skipLibCheck": true,
+        "emitDeclarationOnly": true,
+        "declaration": true
+    }
+}

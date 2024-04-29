@@ -1,0 +1,32 @@
+---
+import config from "virtual:astro-decap-cms-config";
+---
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Content Manager</title>
+  </head>
+  <body data-cms-config={JSON.stringify(config)}>
+    <script is:inline>
+      // @ts-ignore
+      window.CMS_MANUAL_INIT = true;
+    </script>
+
+    <script
+      src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"
+      type="module"></script>
+
+    <script type="module">
+      const config = JSON.parse(document.body.dataset.cmsConfig ?? "{}");
+
+      console.log(config);
+      // @ts-ignore
+      window.initCMS({ config });
+    </script>
+  </body>
+</html>
