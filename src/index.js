@@ -19,11 +19,6 @@ export default function decapCMS({
         const modifiedCmsConfig = {
           ...cmsConfig,
           load_config_file: false,
-          backend: {
-            ...cmsConfig.backend,
-            base_url: config.site?.toString(),
-            auth_endpoint: "oauth",
-          },
         };
 
         const virtualModule = {
