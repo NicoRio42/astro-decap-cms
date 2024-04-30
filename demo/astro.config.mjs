@@ -12,6 +12,7 @@ export default defineConfig({
     mdx(),
     sitemap(),
     decapCms({
+      cmsScriptSrc: "https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js",
       cmsConfig: {
         backend: {
           name: "github",
