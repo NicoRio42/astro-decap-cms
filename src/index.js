@@ -14,7 +14,7 @@ export default function decapCMS({
   return {
     name: "astro-decap-cms",
     hooks: {
-      "astro:config:setup": async ({ injectRoute, config, updateConfig }) => {
+      "astro:config:setup": async ({ injectRoute, updateConfig }) => {
         const virtualModule = {
           cmsConfig: {
             ...cmsConfig,
@@ -26,7 +26,6 @@ export default function decapCMS({
         updateConfig({
           vite: {
             plugins: [
-              ...(config.vite?.plugins || []),
               virtual({
                 "virtual:astro-decap-cms": virtualModule,
               }),
