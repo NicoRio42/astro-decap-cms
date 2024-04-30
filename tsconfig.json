@@ -3,7 +3,7 @@
         "strict": true,
         "allowJs": true,
         "checkJs": true,
-        "outDir": "dist",
+        "outDir": "types",
         "lib": ["ESNext"],
         "module": "NodeNext",
         "moduleResolution": "NodeNext",

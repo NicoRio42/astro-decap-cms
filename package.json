@@ -1,6 +1,6 @@
 {
   "name": "astro-decap",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "keywords": [
     "astro-integration",
@@ -35,7 +35,9 @@
   },
   "devDependencies": {
     "decap-cms-core": "^3.3.6",
-    "typescript": "^5.4.5",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
     "vite-plugin-virtual": "^0.3.0"
   }
 }
