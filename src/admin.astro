@@ -1,5 +1,7 @@
 ---
-import config from "virtual:astro-decap-cms-config";
+import virtualModule from "virtual:astro-decap-cms";
+
+const { cmsConfig, cmsScriptSrc } = virtualModule;
 ---
 
 <!doctype html>
@@ -11,20 +13,16 @@ import config from "virtual:astro-decap-cms-config";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Content Manager</title>
   </head>
-  <body data-cms-config={JSON.stringify(config)}>
+  <body data-cms-config={JSON.stringify(cmsConfig)}>
     <script is:inline>
       // @ts-ignore
       window.CMS_MANUAL_INIT = true;
     </script>
 
-    <script
-      src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"
-      type="module"></script>
+    <script src={cmsScriptSrc} type="module"></script>
 
     <script type="module">
       const config = JSON.parse(document.body.dataset.cmsConfig ?? "{}");
-
-      console.log(config);
       // @ts-ignore
       window.initCMS({ config });
     </script>

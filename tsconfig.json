@@ -9,6 +9,6 @@
         "moduleResolution": "NodeNext",
         "skipLibCheck": true,
         "emitDeclarationOnly": true,
-        "declaration": true
-    }
+        "declaration": true,
+    }, "include": ["src/**/*"]
 }

@@ -1,12 +1,36 @@
 {
-  "name": "root",
-  "version": "1.0.0",
+  "name": "astro-decap",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "type": "module",
+  "files": [
+    "src",
+    "types",
+    "README.md"
+  ],
+  "main": "./src/index.js",
+  "module": "./src/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./src/index.js"
+    },
+    "./src/admin.astro": "./src/admin.astro"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "prepublishOnly": "pnpm run build"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "peerDependencies": {
+    "astro": "^3.0.0 || ^4.0.0"
+  },
+  "devDependencies": {
+    "decap-cms-core": "^3.3.6",
+    "typescript": "^5.4.5",
+    "vite-plugin-virtual": "^0.3.0"
+  }
 }
