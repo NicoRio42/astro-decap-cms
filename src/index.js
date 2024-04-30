@@ -14,12 +14,16 @@ export default function decapCMS({
   return {
     name: "astro-decap-cms",
     hooks: {
-      "astro:config:setup": async ({ injectRoute, updateConfig }) => {
+      "astro:config:setup": async ({ injectRoute, updateConfig, config }) => {
+        /** @type {import("decap-cms-core").CmsConfig} */
+        const modifiedCmsConfig = {
+          ...cmsConfig,
+          load_config_file: false,
+          backend: { ...cmsConfig.backend, base_url: config.site?.toString() },
+        };
+
         const virtualModule = {
-          cmsConfig: {
-            ...cmsConfig,
-            load_config_file: false,
-          },
+          cmsConfig: modifiedCmsConfig,
           cmsScriptSrc,
         };
 

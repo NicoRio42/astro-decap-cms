@@ -6,7 +6,9 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://astro-decap-cms.pages.dev",
+  site: import.meta.env.DEV
+    ? "http://localhost:4321"
+    : "https://astro-decap-cms.pages.dev",
   output: "hybrid",
   integrations: [
     mdx(),
