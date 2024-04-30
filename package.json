@@ -24,7 +24,9 @@
       "types": "./types/index.d.ts",
       "import": "./src/index.js"
     },
-    "./src/admin.astro": "./src/admin.astro"
+    "./src/admin.astro": "./src/admin.astro",
+    "./src/oauth/index.ts": "./src/oauth/index.ts",
+    "./src/oauth/callback.ts": "./src/oauth/callback.ts"
   },
   "scripts": {
     "build": "tsc",

@@ -2,28 +2,40 @@ import mdx from "@astrojs/mdx";
 import decapCms from "astro-decap";
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
+import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://example.com",
+  output: "hybrid",
   integrations: [
     mdx(),
     sitemap(),
     decapCms({
       cmsConfig: {
-        local_backend: import.meta.env.MODE === "development",
-        backend: { name: "gitlab", repo: "test/test" },
+        backend: {
+          name: "github",
+          repo: "NicoRio42/astro-decap-cms",
+          branch: "main",
+        },
         media_folder: "public",
         public_folder: "/",
-
         collections: [
           {
             label: "Blog posts",
             name: "blog",
-            folder: "src/content/blog",
+            folder: "demo/src/content/blog",
             fields: [
-              { name: "title", label: "Title", widget: "string" },
-              { name: "description", label: "Description", widget: "text" },
+              {
+                name: "title",
+                label: "Title",
+                widget: "string",
+              },
+              {
+                name: "description",
+                label: "Description",
+                widget: "text",
+              },
               {
                 name: "pubDate",
                 label: "Publication date",
@@ -41,11 +53,15 @@ export default defineConfig({
                 widget: "image",
                 required: false,
               },
-              { name: "body", widget: "markdown" },
+              {
+                name: "body",
+                widget: "markdown",
+              },
             ],
           },
         ],
       },
     }),
   ],
+  adapter: cloudflare({ platformProxy: { enabled: true } }),
 });

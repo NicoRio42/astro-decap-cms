@@ -37,6 +37,16 @@ export default function decapCMS({
           pattern: "/admin",
           entrypoint: "astro-decap/src/admin.astro",
         });
+
+        injectRoute({
+          pattern: "/oauth",
+          entrypoint: "astro-decap/src/oauth/index.ts",
+        });
+
+        injectRoute({
+          pattern: "/oauth/callback",
+          entrypoint: "astro-decap/src/oauth/callback.ts",
+        });
       },
     },
   };
