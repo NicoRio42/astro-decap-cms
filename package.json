@@ -2,6 +2,14 @@
   "name": "astro-decap",
   "version": "0.0.1",
   "description": "",
+  "keywords": [
+    "astro-integration",
+    "astro-component",
+    "cms",
+    "decap-cms"
+  ],
+  "author": "Nicolas Rio",
+  "license": "MIT",
   "type": "module",
   "files": [
     "src",
@@ -22,9 +30,6 @@
     "build": "tsc",
     "prepublishOnly": "pnpm run build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "peerDependencies": {
     "astro": "^3.0.0 || ^4.0.0"
   },
