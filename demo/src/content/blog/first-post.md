@@ -3,7 +3,7 @@ title: First post
 description: |-
   Lorem ipsum dolor sit amet
 
-  Test CMS
+  Test CMS 2
 pubDate: Jul 08 2022
 updatedDate: 2024-04-30T10:45:00.000Z
 heroImage: /blog-placeholder-3.jpg
