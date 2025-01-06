@@ -26,14 +26,14 @@ export default function decapCMS(astroDecapConfig) {
 
         const virtualModule = {
           cmsConfig: modifiedCmsConfig,
-          toto: "toto",
-          cmsScriptSrc,
+          injectOAuthRoute,
           getEnvObjectFromRequestContext: injectOAuthRoute
             ? astroDecapConfig.getEnvObjectFromRequestContext
             : () => {
                 {
                 }
               },
+          cmsScriptSrc,
         };
 
         updateConfig({
