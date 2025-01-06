@@ -3,7 +3,7 @@ Adapted https://github.com/sveltia/sveltia-cms-auth/tree/main for Astro JS
 */
 
 import type { APIRoute } from "astro";
-import virtualModule from "virtual:astro-decap-cms-oauth";
+import virtualModule from "virtual:astro-decap-cms";
 import { outputHTML, supportedProviders } from "./utils.js";
 
 export const prerender = false;
