@@ -26,22 +26,24 @@ export default function decapCMS(astroDecapConfig) {
 
         const virtualModule = {
           cmsConfig: modifiedCmsConfig,
-          injectOAuthRoute,
-          getEnvObjectFromRequestContext: injectOAuthRoute
-            ? astroDecapConfig.getEnvObjectFromRequestContext
-            : () => {
-                {
-                }
-              },
           cmsScriptSrc,
         };
 
         updateConfig({
           vite: {
             plugins: [
-              virtual({
-                "virtual:astro-decap-cms": virtualModule,
-              }),
+              virtual(
+                injectOAuthRoute
+                  ? {
+                      "virtual:astro-decap-cms": virtualModule,
+                      "virtual:astro-decap-cms-oauth": {
+                        getEnvObjectFromRequestContext: `export default ${astroDecapConfig.getEnvObjectFromRequestContext.toString()}`,
+                      },
+                    }
+                  : {
+                      "virtual:astro-decap-cms": virtualModule,
+                    }
+              ),
             ],
           },
         });
