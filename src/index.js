@@ -12,6 +12,11 @@ export default function decapCMS(astroDecapConfig) {
     name: "astro-decap-cms",
     hooks: {
       "astro:config:setup": async ({ injectRoute, updateConfig }) => {
+        console.log(
+          "TOTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
+          astroDecapConfig.getEnvObjectFromRequestContext
+        );
+
         const {
           cmsConfig,
           cmsScriptSrc = DEFAULT_CMS_SCRIPT_SRC,
