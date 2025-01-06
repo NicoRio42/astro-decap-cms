@@ -36,9 +36,7 @@ export default function decapCMS(astroDecapConfig) {
                 injectOAuthRoute
                   ? {
                       "virtual:astro-decap-cms": virtualModule,
-                      "virtual:astro-decap-cms-oauth": {
-                        getEnvObjectFromRequestContext: `export default ${astroDecapConfig.getEnvObjectFromRequestContext.toString()}`,
-                      },
+                      "virtual:astro-decap-cms-oauth": `export default ${astroDecapConfig.getEnvObjectFromRequestContext.toString()}`,
                     }
                   : {
                       "virtual:astro-decap-cms": virtualModule,
