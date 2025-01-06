@@ -1,12 +1,13 @@
 import type { APIRoute } from "astro";
+import virtualModule from "virtual:astro-decap-cms-oauth";
 
 export const prerender = false;
 
-export const GET: APIRoute = async ({ url, redirect, locals }) => {
-  const { env } = locals.runtime;
+export const GET: APIRoute = async (context) => {
+  const env = virtualModule.getEnvObjectFromRequestContext(context);
 
   const data = {
-    code: url.searchParams.get("code"),
+    code: context.url.searchParams.get("code"),
     client_id: env.GITHUB_CLIENT_ID,
     client_secret: env.GITHUB_CLIENT_SECRET,
   };
@@ -61,6 +62,6 @@ export const GET: APIRoute = async ({ url, redirect, locals }) => {
     });
   } catch (err) {
     console.log(err);
-    return redirect("/?error=😡");
+    return context.redirect("/?error=😡");
   }
 };

@@ -4,10 +4,9 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
 
-// https://astro.build/config
 export default defineConfig({
   site: "https://astro-decap-cms.pages.dev",
-  output: "hybrid",
+  output: "static",
   integrations: [
     mdx(),
     sitemap(),
@@ -64,6 +63,8 @@ export default defineConfig({
           },
         ],
       },
+      injectOAuthRoute: true,
+      getEnvObjectFromRequestContext: ({ locals }) => locals.runtime.env,
     }),
   ],
   adapter: cloudflare({ platformProxy: { enabled: true } }),

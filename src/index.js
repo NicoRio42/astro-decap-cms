@@ -4,18 +4,21 @@ const DEFAULT_CMS_SCRIPT_SRC =
   "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js";
 
 /**
- * @param {import("./types.js").DecapCmsIntegrationOptions} param0
+ * @param {import("./types.js").DecapCmsIntegrationOptions} astroDecapConfig
  * @returns {import("astro").AstroIntegration}
  */
-export default function decapCMS({
-  cmsConfig,
-  cmsScriptSrc = DEFAULT_CMS_SCRIPT_SRC,
-}) {
+export default function decapCMS(astroDecapConfig) {
   return {
     name: "astro-decap-cms",
     hooks: {
-      "astro:config:setup": async ({ injectRoute, updateConfig, config }) => {
-        /** @type {import("decap-cms-core").CmsConfig} */
+      "astro:config:setup": async ({ injectRoute, updateConfig }) => {
+        const {
+          cmsConfig,
+          cmsScriptSrc = DEFAULT_CMS_SCRIPT_SRC,
+          injectOAuthRoute,
+        } = astroDecapConfig;
+
+        /** @type {import("./types.js").CmsConfig} */
         const modifiedCmsConfig = {
           ...cmsConfig,
           load_config_file: false,
@@ -39,6 +42,21 @@ export default function decapCMS({
         injectRoute({
           pattern: "/admin",
           entrypoint: "astro-decap/src/admin.astro",
+        });
+
+        if (!injectOAuthRoute) return;
+
+        updateConfig({
+          vite: {
+            plugins: [
+              virtual({
+                "virtual:astro-decap-cms-oauth": {
+                  getEnvObjectFromRequestContext:
+                    astroDecapConfig.getEnvObjectFromRequestContext,
+                },
+              }),
+            ],
+          },
         });
 
         injectRoute({

@@ -4,7 +4,7 @@
     "allowJs": true,
     "checkJs": true,
     "outDir": "types",
-    "lib": ["ESNext"],
+    "lib": ["ESNext", "DOM"],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "skipLibCheck": true,
@@ -12,5 +12,4 @@
     "declaration": true
   },
   "include": ["src/**/*"],
-  "exclude": ["src/oauth"]
 }

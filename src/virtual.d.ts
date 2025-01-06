@@ -1,7 +1,16 @@
 declare module "virtual:astro-decap-cms" {
-  import type { CmsConfig } from "decap-cms-core";
+  const virtualModule: {
+    cmsConfig: import("./types.ts").CmsConfig;
+    cmsScriptSrc: string;
+  };
 
-  const virtualModule: { cmsConfig: CmsConfig; cmsScriptSrc: string };
+  export default virtualModule;
+}
+
+declare module "virtual:astro-decap-cms-oauth" {
+  const virtualModule: {
+    getEnvObjectFromRequestContext: import("./types.ts").GetEnvObjectFromRequestContext;
+  };
 
   export default virtualModule;
 }
