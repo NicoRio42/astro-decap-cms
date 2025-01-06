@@ -8,9 +8,7 @@ declare module "virtual:astro-decap-cms" {
 }
 
 declare module "virtual:astro-decap-cms-oauth" {
-  const virtualModule: {
-    getEnvObjectFromRequestContext: import("./types.ts").GetEnvObjectFromRequestContext;
-  };
+  const virtualModule: import("./types.ts").GetEnvObjectFromRequestContext;
 
   export default virtualModule;
 }

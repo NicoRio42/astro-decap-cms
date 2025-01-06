@@ -3,14 +3,13 @@ Adapted https://github.com/sveltia/sveltia-cms-auth/tree/main for Astro JS
 */
 
 import type { APIRoute } from "astro";
-import virtualModule from "virtual:astro-decap-cms-oauth";
+import getEnvObjectFromRequestContext from "virtual:astro-decap-cms-oauth";
 import { escapeRegExp, outputHTML, supportedProviders } from "./utils.js";
 
 export const prerender = false;
 
 export const GET: APIRoute = (context) => {
-  console.log(virtualModule);
-  const env = virtualModule.getEnvObjectFromRequestContext(context);
+  const env = getEnvObjectFromRequestContext(context);
   const { url } = context.request;
   const { origin, searchParams } = new URL(url);
   const { provider, site_id: domain } = Object.fromEntries(searchParams);
