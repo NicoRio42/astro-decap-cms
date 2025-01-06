@@ -32,9 +32,19 @@ export default function decapCMS(astroDecapConfig) {
         updateConfig({
           vite: {
             plugins: [
-              virtual({
-                "virtual:astro-decap-cms": virtualModule,
-              }),
+              virtual(
+                injectOAuthRoute
+                  ? {
+                      "virtual:astro-decap-cms": virtualModule,
+                      "virtual:astro-decap-cms-oauth": {
+                        getEnvObjectFromRequestContext:
+                          astroDecapConfig.getEnvObjectFromRequestContext,
+                      },
+                    }
+                  : {
+                      "virtual:astro-decap-cms": virtualModule,
+                    }
+              ),
             ],
           },
         });
@@ -45,19 +55,6 @@ export default function decapCMS(astroDecapConfig) {
         });
 
         if (!injectOAuthRoute) return;
-
-        updateConfig({
-          vite: {
-            plugins: [
-              virtual({
-                "virtual:astro-decap-cms-oauth": {
-                  getEnvObjectFromRequestContext:
-                    astroDecapConfig.getEnvObjectFromRequestContext,
-                },
-              }),
-            ],
-          },
-        });
 
         injectRoute({
           pattern: "/oauth",
