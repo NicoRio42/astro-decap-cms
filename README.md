@@ -1,6 +1,6 @@
 # Yet another Astro Decap CMS integration
 
-Astro Decap is an Astro integration to simplify the usage of [Deacap CMS](https://decapcms.org/) in your Astro projects.
+Astro Decap is an Astro integration to simplify the usage of [Decap CMS](https://decapcms.org/) in your Astro projects.
 
 Features:
 
