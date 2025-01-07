@@ -17,7 +17,7 @@ export type DecapCmsIntegrationOptions =
       getEnvObjectFromRequestContext: GetEnvObjectFromRequestContext;
     };
 
-type CmsBackendType =
+export type CmsBackendType =
   | "azure"
   | "git-gateway"
   | "github"
@@ -27,9 +27,9 @@ type CmsBackendType =
   | "test-repo"
   | "proxy";
 
-type CmsMapWidgetType = "Point" | "LineString" | "Polygon";
+export type CmsMapWidgetType = "Point" | "LineString" | "Polygon";
 
-type CmsMarkdownWidgetButton =
+export type CmsMarkdownWidgetButton =
   | "bold"
   | "italic"
   | "code"
@@ -45,26 +45,26 @@ type CmsMarkdownWidgetButton =
   | "bulleted-list"
   | "numbered-list";
 
-interface CmsSelectWidgetOptionObject {
+export interface CmsSelectWidgetOptionObject {
   label: string;
   value: any;
 }
 
-type CmsCollectionFormatType = string;
+export type CmsCollectionFormatType = string;
 
-type CmsAuthScope = "repo" | "public_repo";
+export type CmsAuthScope = "repo" | "public_repo";
 
-type CmsPublishMode = "simple" | "editorial_workflow" | "";
+export type CmsPublishMode = "simple" | "editorial_workflow" | "";
 
-type CmsSlugEncoding = "unicode" | "ascii";
+export type CmsSlugEncoding = "unicode" | "ascii";
 
-interface CmsI18nConfig {
+export interface CmsI18nConfig {
   structure: "multiple_folders" | "multiple_files" | "single_file";
   locales: string[];
   default_locale?: string;
 }
 
-interface CmsFieldBase {
+export interface CmsFieldBase {
   name: string;
   label?: string;
   required?: boolean;
@@ -76,12 +76,12 @@ interface CmsFieldBase {
   comment?: string;
 }
 
-interface CmsFieldBoolean {
+export interface CmsFieldBoolean {
   widget: "boolean";
   default?: boolean;
 }
 
-interface CmsFieldCode {
+export interface CmsFieldCode {
   widget: "code";
   default?: any;
 
@@ -91,7 +91,7 @@ interface CmsFieldCode {
   output_code_only?: boolean;
 }
 
-interface CmsFieldColor {
+export interface CmsFieldColor {
   widget: "color";
   default?: string;
 
@@ -99,7 +99,7 @@ interface CmsFieldColor {
   enableAlpha?: boolean;
 }
 
-interface CmsFieldDateTime {
+export interface CmsFieldDateTime {
   widget: "datetime";
   default?: string;
 
@@ -122,7 +122,7 @@ interface CmsFieldDateTime {
   pickerUtc?: boolean;
 }
 
-interface CmsFieldFileOrImage {
+export interface CmsFieldFileOrImage {
   widget: "file" | "image";
   default?: string;
 
@@ -132,7 +132,7 @@ interface CmsFieldFileOrImage {
   config?: any;
 }
 
-interface CmsFieldObject {
+export interface CmsFieldObject {
   widget: "object";
   default?: any;
 
@@ -141,7 +141,7 @@ interface CmsFieldObject {
   fields: CmsField[];
 }
 
-interface CmsFieldList {
+export interface CmsFieldList {
   widget: "list";
   default?: any;
 
@@ -158,7 +158,7 @@ interface CmsFieldList {
   types?: (CmsFieldBase & CmsFieldObject)[];
 }
 
-interface CmsFieldMap {
+export interface CmsFieldMap {
   widget: "map";
   default?: string;
 
@@ -166,7 +166,7 @@ interface CmsFieldMap {
   type?: CmsMapWidgetType;
 }
 
-interface CmsFieldMarkdown {
+export interface CmsFieldMarkdown {
   widget: "markdown";
   default?: string;
 
@@ -181,7 +181,7 @@ interface CmsFieldMarkdown {
   editorComponents?: string[];
 }
 
-interface CmsFieldNumber {
+export interface CmsFieldNumber {
   widget: "number";
   default?: string | number;
 
@@ -197,7 +197,7 @@ interface CmsFieldNumber {
   valueType?: "int" | "float" | string;
 }
 
-interface CmsFieldSelect {
+export interface CmsFieldSelect {
   widget: "select";
   default?: string | string[];
 
@@ -207,7 +207,7 @@ interface CmsFieldSelect {
   max?: number;
 }
 
-interface CmsFieldRelation {
+export interface CmsFieldRelation {
   widget: "relation";
   default?: string | string[];
 
@@ -237,18 +237,18 @@ interface CmsFieldRelation {
   optionsLength?: number;
 }
 
-interface CmsFieldHidden {
+export interface CmsFieldHidden {
   widget: "hidden";
   default?: any;
 }
 
-interface CmsFieldStringOrText {
+export interface CmsFieldStringOrText {
   // This is the default widget, so declaring its type is optional.
   widget?: "string" | "text";
   default?: string;
 }
 
-interface CmsFieldMeta {
+export interface CmsFieldMeta {
   name: string;
   label: string;
   widget: string;
@@ -257,7 +257,7 @@ interface CmsFieldMeta {
   meta: boolean;
 }
 
-type CmsField = CmsFieldBase &
+export type CmsField = CmsFieldBase &
   (
     | CmsFieldBoolean
     | CmsFieldCode
@@ -276,7 +276,7 @@ type CmsField = CmsFieldBase &
     | CmsFieldMeta
   );
 
-interface CmsCollectionFile {
+export interface CmsCollectionFile {
   name: string;
   label: string;
   file: string;
@@ -290,13 +290,13 @@ interface CmsCollectionFile {
   public_folder?: string;
 }
 
-interface ViewFilter {
+export interface ViewFilter {
   label: string;
   field: string;
   pattern: string;
 }
 
-interface ViewGroup {
+export interface ViewGroup {
   label: string;
   field: string;
   pattern?: string;
@@ -351,7 +351,7 @@ export interface CmsCollection {
   sortableFields?: string[];
 }
 
-interface CmsBackend {
+export interface CmsBackend {
   name: CmsBackendType;
   auth_scope?: CmsAuthScope;
   open_authoring?: boolean;
@@ -377,13 +377,13 @@ interface CmsBackend {
   };
 }
 
-interface CmsSlug {
+export interface CmsSlug {
   encoding?: CmsSlugEncoding;
   clean_accents?: boolean;
   sanitize_replacement?: string;
 }
 
-interface CmsLocalBackend {
+export interface CmsLocalBackend {
   url?: string;
   allowed_hosts?: string[];
 }
@@ -418,9 +418,9 @@ export interface CmsConfig {
   };
 }
 
-type CmsMediaLibraryOptions = any; // TODO: type properly
+export type CmsMediaLibraryOptions = any; // TODO: type properly
 
-interface CmsMediaLibrary {
+export interface CmsMediaLibrary {
   name: string;
   config?: CmsMediaLibraryOptions;
 }
