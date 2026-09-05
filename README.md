@@ -144,10 +144,12 @@ Add `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` environment variables to your 
 
 ## Publishing to npm
 
-The [`publish.yml`](.github/workflows/publish.yml) GitHub Actions workflow publishes
-the package when a GitHub Release is published. It uses [npm trusted
+The [`publish.yml`](.github/workflows/publish.yml) GitHub Actions workflow stages
+the package on npm when a GitHub Release is published. It uses [npm trusted
 publishing](https://docs.npmjs.com/trusted-publishers/) with OpenID Connect
-(OIDC), so no npm access token is stored in GitHub.
+(OIDC), so no npm access token is stored in GitHub. A maintainer must review and
+approve the staged package with two-factor authentication before it becomes
+public.
 
 ### Configure trusted publishing
 
@@ -160,7 +162,8 @@ select **GitHub Actions**, and enter:
 - Repository: `astro-decap-cms`
 - Workflow filename: `publish.yml`
 - Environment name: leave blank
-- Allowed actions: enable `npm publish`
+- Allowed actions: leave `npm publish` disabled; `npm stage publish` is enabled
+  automatically
 
 The workflow filename is case-sensitive and must be entered without the
 `.github/workflows/` prefix. No `NPM_TOKEN` repository secret is needed. The
@@ -168,10 +171,9 @@ workflow uses a GitHub-hosted runner and grants only `contents: read` and
 `id-token: write`, the latter of which lets npm authenticate the workflow via
 OIDC.
 
-After confirming that trusted publishing works, npm recommends opening the
-package's **Settings > Publishing access** and selecting **Require two-factor
-authentication and disallow tokens**. Trusted publishing continues to work
-with that setting.
+After confirming that trusted publishing works, open the package's **Settings >
+Publishing access** and select **Require two-factor authentication and disallow
+tokens**. Trusted publishing continues to work with that setting.
 
 ### Publish a release
 
@@ -179,11 +181,18 @@ with that setting.
 2. Commit and push the change to GitHub.
 3. Create a GitHub Release whose tag is `v` followed by the package version,
    for example `v0.4.0`.
-4. Publish the release. GitHub Actions will build and publish the package.
+4. Publish the release. GitHub Actions will build the package and submit it to
+   npm's staging area.
+5. Open the **Staged Packages** tab on npmjs.com, review the package, and approve
+   it with two-factor authentication. You can also review and approve it from
+   the command line with `npm stage view <stage-id>` and
+   `npm stage approve <stage-id>`.
 
-The workflow stops before publishing if the release tag does not exactly match
-the version in `package.json`. Successful trusted publishes from a public
-repository automatically include npm provenance attestations.
+The workflow stops before staging if the release tag does not exactly match the
+version in `package.json`. Once approved, successful trusted publishes from
+a public repository automatically include npm provenance attestations. See the
+[npm staged publishing documentation](https://docs.npmjs.com/staged-publishing/)
+for additional review commands.
 
 <!-- You can provide a custom `cmsScriptSrc` option, for exemple if you want to use Sveltia CMS instead of Decap CMS:
 
