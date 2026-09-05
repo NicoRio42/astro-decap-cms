@@ -28,6 +28,24 @@ function virtualModules(modules) {
 }
 
 /**
+ * @param {string[]} dependencies
+ */
+function optimizeServerDependencies(dependencies) {
+  return {
+    name: "astro-decap-cms:optimize-server-dependencies",
+    configEnvironment(/** @type {string} */ name) {
+      if (name !== "ssr") return;
+
+      return {
+        optimizeDeps: {
+          include: dependencies,
+        },
+      };
+    },
+  };
+}
+
+/**
  * @param {import("./types.js").DecapCmsIntegrationOptions} astroDecapConfig
  * @returns {import("astro").AstroIntegration}
  */
@@ -66,6 +84,14 @@ export default function decapCMS(astroDecapConfig) {
                       "virtual:astro-decap-cms": virtualModule,
                     }
               ),
+              ...(injectOAuthRoute
+                ? [
+                    optimizeServerDependencies([
+                      "astro-decap/src/oauth/index.ts",
+                      "astro-decap/src/oauth/callback.ts",
+                    ]),
+                  ]
+                : []),
             ],
           },
         });
