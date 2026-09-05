@@ -16,13 +16,13 @@ Roadmap:
 ## Installation
 
 ```bash
-npx astro add astro-decap
+bunx astro add astro-decap
 ```
 
 Or manually install.
 
 ```bash
-npm install astro-decap
+bun add astro-decap
 ```
 
 And add the integration to your `astro.config.mjs` file.
@@ -99,7 +99,7 @@ The Astro Decap integration can setup API endpoints to let your admin users log 
 You have to install an Astro Adapter with server capabilities (Cloudflare, Vercel...):
 
 ```bash
-npx astro add cloudflare
+bunx astro add cloudflare
 ```
 
 #### Step 2: Update Astro Decap config
