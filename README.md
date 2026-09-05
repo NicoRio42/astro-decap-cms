@@ -142,6 +142,49 @@ Once registered, click on the **Generate a new client secret** button. The appâ€
 
 Add `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` environment variables to your host. For exemple, on Cloudflare, on the Cloudflare dashboard, select **Settings** > **Variables**, and add the following Environment Variables to your worker ([details](https://developers.cloudflare.com/workers/platform/environment-variables/#environment-variables-via-the-dashboard)):
 
+## Publishing to npm
+
+The [`publish.yml`](.github/workflows/publish.yml) GitHub Actions workflow publishes
+the package when a GitHub Release is published. It uses [npm trusted
+publishing](https://docs.npmjs.com/trusted-publishers/) with OpenID Connect
+(OIDC), so no npm access token is stored in GitHub.
+
+### Configure trusted publishing
+
+First, commit this workflow and push it to the repository's default branch. The
+package must already exist on npm before a trusted publisher can be added. As an
+npm package owner, open **Packages > astro-decap > Settings > Trusted Publisher**,
+select **GitHub Actions**, and enter:
+
+- Organization or user: `NicoRio42`
+- Repository: `astro-decap-cms`
+- Workflow filename: `publish.yml`
+- Environment name: leave blank
+- Allowed actions: enable `npm publish`
+
+The workflow filename is case-sensitive and must be entered without the
+`.github/workflows/` prefix. No `NPM_TOKEN` repository secret is needed. The
+workflow uses a GitHub-hosted runner and grants only `contents: read` and
+`id-token: write`, the latter of which lets npm authenticate the workflow via
+OIDC.
+
+After confirming that trusted publishing works, npm recommends opening the
+package's **Settings > Publishing access** and selecting **Require two-factor
+authentication and disallow tokens**. Trusted publishing continues to work
+with that setting.
+
+### Publish a release
+
+1. Update `version` in `package.json` to a version that has not been published.
+2. Commit and push the change to GitHub.
+3. Create a GitHub Release whose tag is `v` followed by the package version,
+   for example `v0.4.0`.
+4. Publish the release. GitHub Actions will build and publish the package.
+
+The workflow stops before publishing if the release tag does not exactly match
+the version in `package.json`. Successful trusted publishes from a public
+repository automatically include npm provenance attestations.
+
 <!-- You can provide a custom `cmsScriptSrc` option, for exemple if you want to use Sveltia CMS instead of Decap CMS:
 
 ```js
