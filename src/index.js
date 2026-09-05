@@ -1,7 +1,31 @@
-import virtual from "vite-plugin-virtual";
-
 const DEFAULT_CMS_SCRIPT_SRC =
   "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js";
+
+const VIRTUAL_MODULE_PREFIX = "\0astro-decap-cms:";
+
+/**
+ * @param {Record<string, unknown>} modules
+ */
+function virtualModules(modules) {
+  return {
+    name: "astro-decap-cms:virtual-modules",
+    enforce: /** @type {const} */ ("pre"),
+    resolveId(/** @type {string} */ id) {
+      return Object.hasOwn(modules, id) ? `${VIRTUAL_MODULE_PREFIX}${id}` : null;
+    },
+    load(/** @type {string} */ id) {
+      if (!id.startsWith(VIRTUAL_MODULE_PREFIX)) return null;
+
+      const moduleId = id.slice(VIRTUAL_MODULE_PREFIX.length);
+      if (!Object.hasOwn(modules, moduleId)) return null;
+
+      const module = modules[moduleId];
+      return typeof module === "string"
+        ? module
+        : `export default ${JSON.stringify(module)}`;
+    },
+  };
+}
 
 /**
  * @param {import("./types.js").DecapCmsIntegrationOptions} astroDecapConfig
@@ -32,7 +56,7 @@ export default function decapCMS(astroDecapConfig) {
         updateConfig({
           vite: {
             plugins: [
-              virtual(
+              virtualModules(
                 injectOAuthRoute
                   ? {
                       "virtual:astro-decap-cms": virtualModule,

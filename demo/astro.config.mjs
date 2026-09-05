@@ -7,6 +7,8 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   site: "https://astro-decap-cms.pages.dev",
   output: "static",
+  compressHTML: true,
+  session: false,
   integrations: [
     mdx(),
     sitemap(),
@@ -64,8 +66,9 @@ export default defineConfig({
         ],
       },
       injectOAuthRoute: true,
-      getEnvObjectFromRequestContext: ({ locals }) => locals.runtime.env,
+      getEnvObjectFromRequestContext: async () =>
+        (await import("cloudflare:workers")).env,
     }),
   ],
-  adapter: cloudflare({ platformProxy: { enabled: true } }),
+  adapter: cloudflare({ imageService: "compile" }),
 });

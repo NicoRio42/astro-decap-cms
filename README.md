@@ -115,10 +115,14 @@ export default defineConfig({
     integrations: [decapCms({
       cmsConfig: {...},
       injectOAuthRoute: true,
-      getEnvObjectFromRequestContext: ({ locals }) => locals.runtime.env,
+      getEnvObjectFromRequestContext: async () =>
+        (await import("cloudflare:workers")).env,
     })],
 });
 ```
+
+The Cloudflare example uses the runtime environment API introduced with Astro 6.
+For another adapter, return its environment object from the callback instead.
 
 ### Step 3: Register a new Github OAuth application
 

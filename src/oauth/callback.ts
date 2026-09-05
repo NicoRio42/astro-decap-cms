@@ -9,7 +9,7 @@ import { outputHTML, supportedProviders } from "./utils.js";
 export const prerender = false;
 
 export const GET: APIRoute = async (context) => {
-  const env = getEnvObjectFromRequestContext(context);
+  const env = await getEnvObjectFromRequestContext(context);
   const { url, headers } = context.request;
   const { origin, searchParams } = new URL(url);
   const { code, state } = Object.fromEntries(searchParams);

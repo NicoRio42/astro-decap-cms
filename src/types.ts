@@ -1,8 +1,18 @@
-import { APIContext } from "astro";
+import type { APIContext } from "astro";
+
+export interface OAuthEnvironment {
+  ALLOWED_DOMAINS?: string;
+  GITHUB_CLIENT_ID?: string;
+  GITHUB_CLIENT_SECRET?: string;
+  GITHUB_HOSTNAME?: string;
+  GITLAB_CLIENT_ID?: string;
+  GITLAB_CLIENT_SECRET?: string;
+  GITLAB_HOSTNAME?: string;
+}
 
 export type GetEnvObjectFromRequestContext = (
   context: APIContext
-) => Record<string, string>;
+) => OAuthEnvironment | Promise<OAuthEnvironment>;
 
 export type DecapCmsIntegrationOptions =
   | {

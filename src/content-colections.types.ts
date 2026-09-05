@@ -1,32 +1,20 @@
-import {
-  AnyZodObject,
-  ZodDiscriminatedUnion,
-  ZodEffects,
-  ZodIntersection,
-  ZodLiteral,
-  ZodNumber,
-  ZodObject,
-  ZodString,
-  ZodUnion,
-} from "astro/zod";
-import { Loader } from "astro/loaders";
+import type { ZodType } from "astro/zod";
+import type { Loader } from "astro/loaders";
 
-export type ImageFunction = () => ZodObject<{
-  src: ZodString;
-  width: ZodNumber;
-  height: ZodNumber;
-  format: ZodUnion<
-    [
-      ZodLiteral<"png">,
-      ZodLiteral<"jpg">,
-      ZodLiteral<"jpeg">,
-      ZodLiteral<"tiff">,
-      ZodLiteral<"webp">,
-      ZodLiteral<"gif">,
-      ZodLiteral<"svg">,
-      ZodLiteral<"avif">
-    ]
-  >;
+export type ImageFunction = () => ZodType<{
+  src: string;
+  width: number;
+  height: number;
+  format:
+    | "png"
+    | "jpg"
+    | "jpeg"
+    | "tiff"
+    | "webp"
+    | "gif"
+    | "svg"
+    | "avif"
+    | "apng";
 }>;
 
 export interface DataEntry {
@@ -59,22 +47,7 @@ export interface MetaStore {
   has: (key: string) => boolean;
 }
 
-type BaseSchemaWithoutEffects =
-  | AnyZodObject
-  | ZodUnion<
-      [BaseSchemaWithoutEffectsHelper, ...BaseSchemaWithoutEffectsHelper[]]
-    >
-  | ZodDiscriminatedUnion<string, AnyZodObject[]>
-  | ZodIntersection<
-      BaseSchemaWithoutEffectsHelper,
-      BaseSchemaWithoutEffectsHelper
-    >;
-
-type BaseSchemaWithoutEffectsHelper = AnyZodObject | BaseSchemaWithoutEffects;
-
-export type BaseSchema =
-  | BaseSchemaWithoutEffects
-  | ZodEffects<BaseSchemaWithoutEffects>;
+export type BaseSchema = ZodType;
 
 export type SchemaContext = { image: ImageFunction };
 

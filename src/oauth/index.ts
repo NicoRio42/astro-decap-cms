@@ -8,9 +8,8 @@ import { escapeRegExp, outputHTML, supportedProviders } from "./utils.js";
 
 export const prerender = false;
 
-export const GET: APIRoute = (context) => {
-  console.log(getEnvObjectFromRequestContext);
-  const env = getEnvObjectFromRequestContext(context);
+export const GET: APIRoute = async (context) => {
+  const env = await getEnvObjectFromRequestContext(context);
   const { url } = context.request;
   const { origin, searchParams } = new URL(url);
   const { provider, site_id: domain } = Object.fromEntries(searchParams);
