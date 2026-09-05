@@ -2,6 +2,9 @@
 
 Astro Decap is an Astro integration to simplify the usage of [Decap CMS](https://decapcms.org/) in your Astro projects.
 
+The integration loads Decap CMS 3.16.0 by default. You can override the CMS
+bundle with the `cmsScriptSrc` integration option.
+
 Features:
 
 - Automatically mount the Decap CMS admin dashboard on the /admin route

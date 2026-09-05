@@ -1,5 +1,5 @@
 const DEFAULT_CMS_SCRIPT_SRC =
-  "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js";
+  "https://unpkg.com/decap-cms@3.16.0/dist/decap-cms.js";
 
 const VIRTUAL_MODULE_PREFIX = "\0astro-decap-cms:";
 
