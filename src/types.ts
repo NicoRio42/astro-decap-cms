@@ -19,12 +19,13 @@ export type DecapCmsIntegrationOptions =
       cmsConfig: CmsConfig;
       cmsScriptSrc?: string;
       injectOAuthRoute?: false;
+      getEnvObjectFromRequestContext?: never;
     }
   | {
       cmsConfig: CmsConfig;
       cmsScriptSrc?: string;
       injectOAuthRoute: true;
-      getEnvObjectFromRequestContext: GetEnvObjectFromRequestContext;
+      getEnvObjectFromRequestContext?: GetEnvObjectFromRequestContext;
     };
 
 export type CmsBackendType =

@@ -1,6 +1,6 @@
 {
   "name": "astro-decap",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Astro integration for configuring Decap CMS with optional GitHub OAuth endpoints",
   "keywords": [
     "astro-integration",

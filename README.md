@@ -107,7 +107,9 @@ bunx astro add cloudflare
 
 #### Step 2: Update Astro Decap config
 
-Set the `injectOAuthRoute` option to `true` in your Astro Decap config object. You also have to provide a `getEnvObjectFromRequestContext` callback: it will be used in the OAuth API endpoints to access `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` environment variables. Check your adapter's documentation to defined how you can get environment variables from request context object.
+Set the `injectOAuthRoute` option to `true` in your Astro Decap config object. By default, the OAuth API endpoints access `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` through `process.env`.
+
+If your adapter exposes environment variables another way, provide a `getEnvObjectFromRequestContext` callback. Check your adapter's documentation to determine how to get environment variables from the request context object.
 
 ```js
 import { defineConfig } from "astro/config";
